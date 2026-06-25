@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block title %}Editar Tarea{% endblock %}
+{% block hero_title %}Afinar pendiente{% endblock %}
+{% block hero_subtitle %}Actualiza la informacion necesaria antes de volver a poner esta nota en marcha.{% endblock %}
+
+{% block content %}
+<section class="single-panel-wrap">
+    <article class="panel form-panel">
+        <h2>Editar informacion</h2>
+        <form method="POST" class="task-form">
+            {% csrf_token %}
+
+            <label for="titulo">Titulo</label>
+            <input type="text" id="titulo" name="titulo" required value="{{ tarea.titulo }}" placeholder="Ej: Preparar avance para revision">
+
+            <label for="contenido">Descripcion</label>
+            <textarea id="contenido" name="contenido" rows="5" placeholder="Ajusta instrucciones, contexto o cualquier dato que haya cambiado.">{{ tarea.contenido }}</textarea>
+
+            <label for="color">Color de la nota</label>
+            <div class="color-picker-wrap">
+                <input type="color" id="color" name="color" value="{{ tarea.color|default:'#fff0a6' }}" aria-label="Elegir color de la nota">
+            </div>
+
+            <button type="submit" class="btn btn-primary">Actualizar pendiente</button>
+            <a href="{% url 'pizarra' %}" class="btn btn-ghost">Cancelar</a>
+        </form>
+    </article>
+</section>
+{% endblock %}

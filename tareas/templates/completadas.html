@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block title %}Historial Completado{% endblock %}
+{% block hero_title %}Historial de avances{% endblock %}
+{% block hero_subtitle %}Revisa lo que ya salio de la pizarra y vuelve a consultar sus detalles cuando lo necesites.{% endblock %}
+
+{% block content %}
+<section class="single-panel-wrap">
+    <section class="panel">
+        <div class="panel-head">
+            <h2>Completadas recientemente</h2>
+            <span class="counter">{{ postits|length }} finalizadas</span>
+        </div>
+
+        <ul class="done-list">
+            {% for nota in postits %}
+            <li>
+                <a href="{% url 'detalle_completada' nota.id %}" class="done-link">
+                    <div>
+                        <strong>{{ nota.titulo }}</strong>
+                        <small>{{ nota.creado_el|date:"d M Y" }}</small>
+                    </div>
+                    <span>Consultar</span>
+                </a>
+            </li>
+            {% empty %}
+            <li class="empty-inline">Todavia no hay tareas finalizadas en el historial.</li>
+            {% endfor %}
+        </ul>
+    </section>
+</section>
+{% endblock %}

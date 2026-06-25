@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block title %}Detalle de Tarea{% endblock %}
+{% block hero_title %}Resumen completado{% endblock %}
+{% block hero_subtitle %}Consulta que se hizo, cuando quedo registrado y conserva el historial a mano.{% endblock %}
+
+{% block content %}
+<section class="single-panel-wrap">
+    <article class="panel detail-panel" style="--note-bg: {{ tarea.color }};">
+        <h2>{{ tarea.titulo }}</h2>
+        <p>{{ tarea.contenido|default:'Esta tarea se completo sin detalles adicionales.' }}</p>
+
+        <div class="detail-meta">
+            <p><strong>Estado:</strong> Completada</p>
+            <p><strong>Registrada el:</strong> {{ tarea.creado_el|date:"d \d\e F, Y - H:i" }}</p>
+        </div>
+
+        <a href="{% url 'historial_completadas' %}" class="btn btn-ghost">Volver al historial</a>
+    </article>
+</section>
+{% endblock %}

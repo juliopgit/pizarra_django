@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+
+{% block title %}Pizarra de Trabajos{% endblock %}
+{% block hero_title %}Pendientes del dia{% endblock %}
+{% block hero_subtitle %}Anota lo importante, dale prioridad visual y conserva el ritmo de trabajo sin perder detalle.{% endblock %}
+
+{% block content %}
+<section class="layout-grid">
+    <article class="panel form-panel">
+        <h2>Crear pendiente</h2>
+        <form method="POST" class="task-form">
+            {% csrf_token %}
+
+            <label for="titulo">Titulo</label>
+            <input type="text" id="titulo" name="titulo" required placeholder="Ej: Revisar entrega del proyecto">
+
+            <label for="contenido">Descripcion</label>
+            <textarea id="contenido" name="contenido" rows="5" placeholder="Agrega indicaciones, fechas, enlaces o cualquier nota que ayude a terminarlo bien."></textarea>
+
+            <label for="color">Color de la nota</label>
+            <div class="color-picker-wrap">
+                <input type="color" id="color" name="color" value="#fff0a6" aria-label="Elegir color de la nota">
+            </div>
+
+            <button type="submit" class="btn btn-primary">Agregar pendiente</button>
+        </form>
+    </article>
+
+    <section class="panel notes-panel">
+        <div class="panel-head">
+            <h2>Trabajo en curso</h2>
+            <span class="counter">{{ postits|length }} en curso</span>
+        </div>
+
+        <div class="notes-grid">
+            {% for nota in postits %}
+            <article class="post-it" style="--note-bg: {{ nota.color }};">
+                <h3>{{ nota.titulo }}</h3>
+                <p>{{ nota.contenido|default:'Sin detalles por ahora.' }}</p>
+                <footer>
+                    <div class="post-meta">{{ nota.creado_el|date:"d M Y" }}</div>
+                    <div class="post-actions">
+                        <a href="{% url 'editar_tarea' nota.id %}" class="btn btn-soft">Editar</a>
+                        <a href="{% url 'completar_tarea' nota.id %}" class="btn btn-success">Completar</a>
+                        <a href="{% url 'eliminar_tarea' nota.id %}" class="btn btn-danger" onclick="return confirm('¿Seguro que deseas eliminar esta tarea?');">Borrar</a>
+                    </div>
+                </footer>
+            </article>
+            {% empty %}
+            <div class="empty-state">
+                <p>Tu pizarra esta limpia. Agrega el proximo pendiente cuando estes listo.</p>
+            </div>
+            {% endfor %}
+        </div>
+    </section>
+</section>
+{% endblock %}

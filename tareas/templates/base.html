@@ -1,0 +1,39 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Pizarra{% endblock %}</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;500;700;800&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/estilos.css' %}">
+</head>
+<body>
+    <header class="topbar">
+        <div class="topbar-inner">
+            <a href="{% url 'pizarra' %}" class="brand">
+                <span class="brand-mark">P</span>
+                <span>Pizarra</span>
+            </a>
+            <nav class="top-nav">
+                <a href="{% url 'pizarra' %}" class="nav-link">Pendientes</a>
+                <a href="{% url 'historial_completadas' %}" class="nav-link">Completadas</a>
+            </nav>
+        </div>
+    </header>
+
+    <div class="page-wrap">
+        <main class="content-scroll">
+            <section class="page-intro">
+                <p class="eyebrow">Panel de productividad</p>
+                <h1>{% block hero_title %}Pizarra{% endblock %}</h1>
+                <p class="hero-subtitle">{% block hero_subtitle %}Organiza pendientes sin perder contexto.{% endblock %}</p>
+            </section>
+
+            {% block content %}{% endblock %}
+        </main>
+    </div>
+</body>
+</html>

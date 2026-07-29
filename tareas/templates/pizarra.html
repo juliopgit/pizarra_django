@@ -6,6 +6,7 @@
 
 {% block content %}
 <section class="layout-grid">
+    {% if user.is_superuser %}
     <article class="panel form-panel">
         <h2>Crear pendiente</h2>
         <form method="POST" class="task-form">
@@ -22,9 +23,18 @@
                 <input type="color" id="color" name="color" value="#fff0a6" aria-label="Elegir color de la nota">
             </div>
 
+            <label for="asignado_a">Asignar a</label>
+            <select id="asignado_a" name="asignado_a" required>
+                <option value="" selected disabled>Selecciona un usuario</option>
+                {% for usuario in usuarios %}
+                <option value="{{ usuario.id }}">{{ usuario.get_username }}</option>
+                {% endfor %}
+            </select>
+
             <button type="submit" class="btn btn-primary">Agregar pendiente</button>
         </form>
     </article>
+    {% endif %}
 
     <section class="panel notes-panel">
         <div class="panel-head">
@@ -38,11 +48,16 @@
                 <h3>{{ nota.titulo }}</h3>
                 <p>{{ nota.contenido|default:'Sin detalles por ahora.' }}</p>
                 <footer>
-                    <div class="post-meta">{{ nota.creado_el|date:"d M Y" }}</div>
+                    <div class="post-meta">
+                        {{ nota.creado_el|date:"d M Y" }}
+                        <span>· {{ nota.asignado_a.get_username }}</span>
+                    </div>
                     <div class="post-actions">
+                        {% if user.is_superuser %}
                         <a href="{% url 'editar_tarea' nota.id %}" class="btn btn-soft">Editar</a>
-                        <a href="{% url 'completar_tarea' nota.id %}" class="btn btn-success">Completar</a>
                         <a href="{% url 'eliminar_tarea' nota.id %}" class="btn btn-danger" onclick="return confirm('¿Seguro que deseas eliminar esta tarea?');">Borrar</a>
+                        {% endif %}
+                        <a href="{% url 'completar_tarea' nota.id %}" class="btn btn-success">Completar</a>
                     </div>
                 </footer>
             </article>

@@ -13,6 +13,9 @@
         <div class="detail-meta">
             <p><strong>Estado:</strong> Completada</p>
             <p><strong>Registrada el:</strong> {{ tarea.creado_el|date:"d \d\e F, Y - H:i" }}</p>
+            {% if tarea.asignado_a %}
+            <p><strong>Asignada a:</strong> {{ tarea.asignado_a.get_username }}</p>
+            {% endif %}
         </div>
 
         <a href="{% url 'historial_completadas' %}" class="btn btn-ghost">Volver al historial</a>

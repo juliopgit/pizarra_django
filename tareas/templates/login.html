@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block title %}Login{% endblock %}
+{% block hero_title %}Entrar a la pizarra{% endblock %}
+{% block hero_subtitle %}Inicia sesion para consultar, crear y actualizar tus pendientes.{% endblock %}
+
+{% block content %}
+<section class="auth-wrap">
+    <article class="panel form-panel auth-panel">
+        <h2>Login</h2>
+        <form method="POST" class="task-form">
+            {% csrf_token %}
+
+            {% if form.non_field_errors %}
+                <div class="form-errors">{{ form.non_field_errors }}</div>
+            {% endif %}
+
+            {% for field in form %}
+                <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                {{ field }}
+                {% if field.errors %}
+                    <div class="form-errors">{{ field.errors }}</div>
+                {% endif %}
+            {% endfor %}
+
+            <button type="submit" class="btn btn-primary">Entrar</button>
+        </form>
+        <p class="auth-note">Si no tienes usuario, consulta al administrador para la creacion de tu cuenta.</p>
+    </article>
+</section>
+{% endblock %}

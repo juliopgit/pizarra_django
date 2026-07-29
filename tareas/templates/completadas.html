@@ -19,6 +19,9 @@
                     <div>
                         <strong>{{ nota.titulo }}</strong>
                         <small>{{ nota.creado_el|date:"d M Y" }}</small>
+                        {% if user.is_superuser and nota.asignado_a %}
+                        <small>{{ nota.asignado_a.get_username }}</small>
+                        {% endif %}
                     </div>
                     <span>Consultar</span>
                 </a>

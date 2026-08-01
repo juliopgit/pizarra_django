@@ -24,8 +24,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-@o2hojf*h@0gd+1*=_whvm-^ud!ahusc0^pxf6l6%w)7%f3fsb'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-# Desactivar Debug
-DEBUG = False
+# Desactivar Debug (usar True en desarrollo local para servir archivos estáticos)
+DEBUG = True
 
 # Permitir tu IP y localhost (cambia la IP por la de tu VM)
 ALLOWED_HOSTS = ['192.168.1.50', 'localhost', '127.0.0.1']

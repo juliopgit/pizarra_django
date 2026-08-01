@@ -7,7 +7,10 @@ class SuperuserAdminOnlyMiddleware:
 
 	def __call__(self, request):
 		if (
-			request.path.startswith('/admin/')
+			(
+				request.path == '/admin-ucenm'
+				or request.path.startswith('/admin-ucenm/')
+			)
 			and request.user.is_authenticated
 			and not request.user.is_superuser
 		):

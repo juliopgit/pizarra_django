@@ -25,10 +25,11 @@ SECRET_KEY = 'django-insecure-@o2hojf*h@0gd+1*=_whvm-^ud!ahusc0^pxf6l6%w)7%f3fsb
 
 # SECURITY WARNING: don't run with debug turned on in production!
 # Desactivar Debug (usar True en desarrollo local para servir archivos estáticos)
-DEBUG = True
+DEBUG = False
 
 # Permitir tu IP y localhost (cambia la IP por la de tu VM)
-ALLOWED_HOSTS = ['192.168.1.50', 'localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['192.168.1.16', 'localhost', '127.0.0.1']
 
 
 # Application definition
@@ -120,12 +121,13 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/6.0/howto/static-files/
 
 # Ruta para archivos estáticos (CSS, JS, imágenes)
-STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+STATIC_URL = "/static/"
 
 STATICFILES_DIRS = [
-    BASE_DIR / 'tareas' / 'static',
+    BASE_DIR / "tareas" / "static",
 ]
+
+STATIC_ROOT = BASE_DIR / "staticfiles"
 
 LOGIN_URL = 'login'
 LOGIN_REDIRECT_URL = 'pizarra'
